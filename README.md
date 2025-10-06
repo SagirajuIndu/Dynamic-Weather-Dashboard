@@ -26,5 +26,5 @@ The **Dynamic-Weather-Dashboard** is a responsive and interactive web applicatio
 
 ## ⚙️ How to Run
 1. Clone this repository:
-   ```bash
-https://github.com/SagirajuIndu/Dynamic-Weather-Dashboard.git
+   ```bash https://github.com/SagirajuIndu/Dynamic-Weather-Dashboard.git
+
