@@ -23,9 +23,3 @@ The **Dynamic-Weather-Dashboard** is a responsive and interactive web applicatio
 - **OpenWeatherMap API** – Real-time weather data source  
 
 ---
-
-## ⚙️ How to Run
-1. Clone this repository:
-   ```bash
-   git clonehttps://github.com/SagirajuIndu/Dynamic-Weather-Dashboard.git
-
