@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dynamic Weather Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1 class="fade-in">Dynamic Weather Dashboard</h1>
+
+      <!-- Controls -->
+      <div class="controls slide-down" style="position:relative;">
+        <input id="search" type="search" placeholder="Search city e.g. Mumbai" autocomplete="off" />
+        <button id="btnSearch">Search</button>
+        <button id="btnLocate" class="toggle" title="Use device location">Use my location</button>
+        <button id="unitToggle" class="toggle" title="Toggle °C/°F">°C</button>
+        <button id="themeToggle" class="toggle" aria-pressed="false" title="Toggle dark mode">Dark</button>
+
+        <!-- Typeahead dropdown (Phase 1) -->
+        <div id="suggestions" class="card" style="
+          position:absolute; top:44px; left:0; right:0; z-index:20; display:none; padding:8px;">
+          <!-- suggestions populated by JS -->
+        </div>
+      </div>
+    </header>
+
+    <!-- Recent searches (Phase 1) -->
+    <div id="recentWrap" style="display:flex; gap:8px; flex-wrap:wrap; margin:-6px 0 10px;">
+      <!-- chips populated by JS -->
+    </div>
+
+    <div class="grid">
+      <!-- Main card -->
+      <section class="card main zoom-in">
+        <div id="status" class="small">Enter a city or click “Use my location”.</div>
+
+        <!-- Current -->
+        <div class="current" style="margin-top:12px;">
+          <div class="icon bounce">
+            <img id="wIconImg" src="" alt="" />
+          </div>
+
+          <div class="details">
+            <div style="display:flex; align-items:end; gap:12px;">
+              <div class="temp" id="temp">--</div>
+              <div>
+                <div id="cond" style="font-weight:600;">--</div>
+                <div class="small" id="place">--</div>
+              </div>
+            </div>
+
+            <div style="margin-top:8px; display:flex; gap:16px; color:var(--muted); font-size:13px;">
+              <div>Feels: <span id="feels">--</span></div>
+              <div>Humidity: <span id="humidity">--</span></div>
+              <div>Wind: <span id="wind">--</span></div>
+            </div>
+
+            <!-- AQI (Phase 2) -->
+            <div id="aqiRow" style="margin-top:8px; display:none; gap:12px; align-items:center;">
+              <span class="small">Air Quality:</span>
+              <span id="aqiBadge" class="toggle" style="pointer-events:none;">--</span>
+              <span id="aqiDesc" class="small" style="color:var(--muted)"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hourly (Phase 3) -->
+        <div id="hourlyWrap" class="card" style="margin-top:10px; padding:12px 14px; display:none;">
+          <div style="font-weight:600; margin-bottom:6px;">Next 24 hours</div>
+          <canvas id="hourlyChart" height="110"></canvas>
+        </div>
+
+        <!-- Forecast -->
+        <h3 style="margin: 10px 0 6px;">5-day forecast</h3>
+        <div class="forecast" id="forecast"></div>
+      </section>
+
+      <!-- Sidebar -->
+      <aside class="card sidebar slide-up">
+        <h3 style="margin:0 0 8px;">Quick Info</h3>
+
+        <div class="row">
+          <span>Local time</span>
+          <span id="localTime">--</span>
+        </div>
+        <div class="row">
+          <span>Sunrise</span>
+          <span id="sunrise">--</span>
+        </div>
+        <div class="row">
+          <span>Sunset</span>
+          <span id="sunset">--</span>
+        </div>
+        <div class="row">
+          <span>Pressure</span>
+          <span id="pressure">--</span>
+        </div>
+        <div class="row">
+          <span>Visibility</span>
+          <span id="visibility">--</span>
+        </div>
+
+        <div class="attribution">
+          Data by OpenWeatherMap • Geolocation API
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Sync theme
+    (function() {
+      const btn = document.getElementById('themeToggle');
+      const saved = localStorage.getItem('theme') || 'light';
+      const isDark = saved === 'dark';
+      if (isDark) {
+        document.body.classList.add('dark');
+        btn && btn.setAttribute('aria-pressed','true');
+        if (btn) btn.textContent = 'Light';
+      }
+    })();
+  </script>
+</body>
+</html>
